@@ -1,47 +1,23 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <header
+    class="leading-relaxed lg:flex lg:items-center lg:pr-[calc(var(--section-gap)/2)]"
+  >
+    <nav class="flex gap-4 mt-4">
+      <RouterLink to="/" class="text-blue-600 hover:underline">home</RouterLink>
+      <RouterLink to="/book" class="text-blue-600 hover:underline"
+        >book a stay</RouterLink
+      >
+      <RouterLink to="/gallery" class="text-blue-600 hover:underline"
+        >gallery</RouterLink
+      >
+    </nav>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div class="wrapper lg:flex lg:items-start lg:flex-wrap">
+      <Title msg="the mobile library" />
     </div>
   </header>
 
   <main>
-    <TheWelcome />
+    <router-view />
   </main>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
