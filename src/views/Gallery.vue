@@ -1,15 +1,9 @@
-<script setup>
-import Title from "../components/Title.vue";
-</script>
+<script setup></script>
 
 <template>
-  <header
-    class="leading-relaxed lg:flex lg:items-center lg:pr-[calc(var(--section-gap)/2)]"
+  <p
+    class="text-2xl sm:text-4xl font-mono tracking-wider pb-12 sm:pl-12 transition-all duration-1000 ease-in-out text-[#4A423C]"
   >
-    <div class="wrapper lg:flex lg:items-start lg:flex-wrap">
-      <Title msg="gallery" />
-    </div>
-  </header>
-
-  <main></main>
+    gallery
+  </p>
 </template>
