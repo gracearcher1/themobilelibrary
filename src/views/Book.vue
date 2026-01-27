@@ -5,12 +5,13 @@
     <p
       class="text-2xl tracking-wider sm:text-4xl font-mono pb-12 sm:pl-12 transition-all duration-1000 ease-in-out text-[#4A423C]"
     >
-      contact us
+      book a stay
     </p>
     <p
       class="text-2xl tracking-wider sm:text-sm font-mono pb-12 sm:pl-12 transition-all duration-1000 ease-in-out text-[#85766B]"
     >
-      to book a stay with us, please contact us using the form below.
+      to request your trip to the mobile library, please let us know your chosen
+      dates using the form below.
     </p>
     <form
       class="rounded-lg pl-10 space-y-6 max-w-200"
