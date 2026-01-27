@@ -4,11 +4,11 @@ import Header from "./components/Header.vue"
 </script>
 
 <template>
-  <header class="p-6 max-w-6xl mx-auto">
+  <header class="p-6 max-w-5xl mx-auto">
     <Header></Header>
   </header>
   <main>
-    <router-view class="max-w-6xl mx-auto" />
+    <router-view class="max-w-5xl mx-auto" />
     <Footer></Footer>
   </main>
 </template>

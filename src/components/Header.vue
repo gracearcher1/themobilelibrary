@@ -13,9 +13,11 @@ const menuItems = [
 </script>
 <template>
   <div
-    class="flex justify-between items-center text-md sm:text-l tracking-wider text-[#e7d8d4] font-mono"
+    class="flex justify-between items-center text-md sm:text-l tracking-wider text-[#4A423C] font-mono"
   >
-    <p class="text-md sm:text-xl ml-auto pr-4 sm:pr-6">the mobile library</p>
+    <p class="text-2xl sm:text-3xl ml-auto pr-4 sm:pr-6 text-[#d6b4ab]">
+      the mobile library
+    </p>
 
     <button
       @click="isMenuOpen = !isMenuOpen"

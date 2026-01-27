@@ -13,25 +13,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="p-4 sm:p-6">
-    <p
-      class="text-2xl tracking-wider font-mono sm:text-4xl pb-4 sm:pb-12 transition-all duration-1000 ease-in-out text-[#4A423C]"
-      :class="
-        hasLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-      "
-    >
-      your retreat awaits
-    </p>
+  <div>
     <img
       :src="exteriorSunset"
       alt="Dining table"
-      class="w-full max-h-60 sm:max-h-120 object-cover transition-all duration-1900 ease-in-out"
+      class="w-full max-h-40 sm:max-h-80 object-cover transition-all duration-1900 ease-in-out"
       :class="
         hasLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       "
     />
 
-    <div class="py-4 sm:py-10">
+    <div class="py-4 sm:py-6">
       <p
         :class="
           hasLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
