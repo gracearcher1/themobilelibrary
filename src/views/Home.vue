@@ -28,7 +28,7 @@ onMounted(() => {
         :class="
           hasLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
         "
-        class="py-12 leading-relaxed tracking-wider font-mono px-4 text-sm sm:text-md pb text-justify transition-all duration-1000 ease-in-out bg-[#b1d8db] text-[#4A423C]"
+        class="py-8 sm:py-12 leading-relaxed tracking-wider font-mono px-4 text-sm sm:text-md pb text-justify transition-all duration-1000 ease-in-out bg-[#b1d8db] text-[#4A423C]"
       >
         Our beautiful self-converted Mobile Library is an off-grid haven. Set on
         a lake in beautiful Somerset surrounded by rolling countryside, it is
