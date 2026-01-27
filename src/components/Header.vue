@@ -15,9 +15,12 @@ const menuItems = [
   <div
     class="flex justify-between items-center text-md sm:text-l tracking-wider text-[#4A423C] font-mono"
   >
-    <p class="text-2xl sm:text-3xl ml-auto pr-4 sm:pr-6 text-[#d6b4ab]">
+    <router-link
+      to="/"
+      class="text-2xl sm:text-3xl ml-auto pr-4 sm:pr-6 text-[#d6b4ab] hover:opacity-80 transition-opacity cursor-pointer"
+    >
       the mobile library
-    </p>
+    </router-link>
 
     <button
       @click="isMenuOpen = !isMenuOpen"
