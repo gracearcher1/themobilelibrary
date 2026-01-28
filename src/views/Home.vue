@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue"
-import exteriorSunset from "../assets/images/exterior-sunset.png"
+import exteriorSunset from "../assets/images/exterior-1.png"
 import diningTable from "../assets/images/dining-table.png"
 
 const hasLoaded = ref(false)

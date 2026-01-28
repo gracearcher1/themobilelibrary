@@ -17,7 +17,7 @@ const menuItems = [
   >
     <router-link
       to="/"
-      class="text-2xl sm:text-3xl ml-auto pr-4 sm:pr-6 text-[#d6b4ab] hover:opacity-80 transition-opacity cursor-pointer"
+      class="text-2xl sm:text-3xl text-[#d6b4ab] ml-auto pr-4 sm:pr-6 hover:opacity-80 transition-opacity cursor-pointer"
     >
       the mobile library
     </router-link>

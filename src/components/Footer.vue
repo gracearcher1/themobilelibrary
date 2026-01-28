@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router"
+import { computed } from "vue"
+import { RouterLink, useRoute } from "vue-router"
 
-const footerLinks = [
+const route = useRoute()
+
+const allFooterLinks = [
+  { to: "/", label: "home" },
   { to: "/book", label: "book your stay" },
   { to: "/gallery", label: "view gallery" },
   { to: "/more-info", label: "more info" },
-  { to: "/", label: "home" },
 ]
+
+const footerLinks = computed(() => {
+  return allFooterLinks.filter((link) => link.to !== route.path)
+})
 </script>
 <template>
   <div name="footer" class="py-4 sm:py-10">
