@@ -62,7 +62,7 @@ const handleSubmit = async (e) => {
 </script>
 
 <template>
-  <div class="p-6 max-w-240">
+  <div class="px-6 max-w-240">
     <p
       class="text-2xl tracking-wider sm:text-4xl font-mono pb-12 sm:pl-12 transition-all duration-1000 ease-in-out text-[#4A423C]"
     >
@@ -71,8 +71,9 @@ const handleSubmit = async (e) => {
     <p
       class="text-sm tracking-wider sm:text-md font-mono pb-12 sm:pl-12 transition-all duration-1000 ease-in-out text-[#85766B]"
     >
-      to request your trip to the mobile library, please let us know your chosen
-      dates using the form below.
+      To request your trip to the mobile library, please let us know your chosen
+      dates using the form below and we will get back to you shortly. If you
+      have any questions regarding the mobile library, feel free to ask below.
     </p>
 
     <form
@@ -246,10 +247,10 @@ const handleSubmit = async (e) => {
       <button
         type="submit"
         :disabled="isSubmitting"
-        class="w-full text-[#4A423C] font-semibold py-3 px-6 rounded-md transition-colors duration-200 disabled:opacity-50"
-        style="background-color: #b1d8db"
+        class="w-full text-[#4A423C] cursor-pointer font-mono py-3 px-6 rounded-md transition-colors duration-200 disabled:opacity-50"
+        style="background-color: #dffcfe"
       >
-        {{ isSubmitting ? "Sending..." : "Send Message" }}
+        {{ isSubmitting ? "Sending..." : "send booking request" }}
       </button>
     </form>
   </div>

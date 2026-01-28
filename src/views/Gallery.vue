@@ -15,6 +15,16 @@ import kitchen5 from "../assets/images/kitchen-5.png"
 import kitchen6 from "../assets/images/kitchen-6.png"
 import kitchen7 from "../assets/images/kitchen-7.png"
 import kitchen8 from "../assets/images/kitchen-8.png"
+import dining1 from "../assets/images/dining-1.png"
+import dining2 from "../assets/images/dining-2.png"
+import dining3 from "../assets/images/dining-3.png"
+import dining4 from "../assets/images/dining-4.png"
+import bedroom1 from "../assets/images/bedroom-1.png"
+import bedroom2 from "../assets/images/bedroom-2.png"
+import bedroom3 from "../assets/images/bedroom-3.png"
+import bedroom4 from "../assets/images/bedroom-4.png"
+import bedroom5 from "../assets/images/bedroom-5.png"
+import bedroom6 from "../assets/images/bedroom-6.png"
 
 const loungeImages = [
   {
@@ -96,6 +106,67 @@ const kitchenImages = [
   },
 ]
 
+const diningImages = [
+  {
+    src: dining1,
+    caption:
+      "The dining table can be moved with ease, allowing you to enjoy supper with a view.",
+    room: "dining area",
+  },
+  {
+    src: dining2,
+    caption:
+      "The table easily extends with enough room to seat 5 people comfortably.",
+    room: "dining area",
+  },
+  {
+    src: dining3,
+    caption: "Luxury dining in natural and stunning surroundings.",
+    room: "dining area",
+  },
+  {
+    src: dining4,
+    caption: "Set up your evening meal by the open double doors.",
+    room: "dining area",
+  },
+]
+
+const bedroomImages = [
+  {
+    src: bedroom1,
+    caption:
+      "Two firm and two soft pillows alongside snug cushions and warm throws add to the cosy atmosphere of the bedroom.",
+    room: "bedroom",
+  },
+  {
+    src: bedroom2,
+    caption:
+      "Our standing tray table makes breakfast in bed a comfortable luxury.",
+    room: "bedroom",
+  },
+  {
+    src: bedroom3,
+    caption: "",
+    room: "bedroom",
+  },
+  {
+    src: bedroom4,
+    caption:
+      "Get a good night's sleep in the double bedroom. A spacious wardrobe provides plenty of hanging space and there's a separate chest of large deep drawers. There are reading lights and a selection of books to choose from to cosy up with at night.",
+    room: "bedroom",
+  },
+  {
+    src: bedroom5,
+    caption:
+      "During the day, our purpose-built sliding bed allows for a snug, private space to sit and relax.",
+    room: "bedroom",
+  },
+  {
+    src: bedroom6,
+    room: "bedroom",
+  },
+]
+
 const exteriorImages = [
   {
     src: exterior1,
@@ -109,7 +180,13 @@ const exteriorImages = [
   },
 ]
 
-const images = ref([...loungeImages, ...kitchenImages, ...exteriorImages])
+const images = ref([
+  ...loungeImages,
+  ...kitchenImages,
+  ...diningImages,
+  ...bedroomImages,
+  ...exteriorImages,
+])
 
 const currentIndex = ref(0)
 const isFullScreen = ref(false)
@@ -138,88 +215,97 @@ const goToRoom = (roomName) => {
   }
 }
 </script>
-
 <template>
-  <div class="pb-12">
-    <div class="">
-      <p
-        class="text-2xl tracking-wider sm:text-4xl font-mono pb-6 sm:pl-12 transition-all duration-1000 ease-in-out text-[#4A423C]"
-      >
-        gallery
-      </p>
-      <p
-        class="text-sm tracking-wider sm:text-md font-mono pb-10 sm:pl-12 transition-all duration-1000 ease-in-out text-[#85766B]"
-      >
-        browse the gallery, exploring the mobile library room by room.
-      </p>
+  <div class="px-4 pb-4">
+    <p
+      class="text-2xl tracking-wider sm:text-4xl font-mono pb-6 sm:pl-12 text-[#4A423C]"
+    >
+      gallery
+    </p>
+    <p
+      class="text-sm tracking-wider sm:text-md font-mono pb-10 sm:pl-12 text-[#85766B]"
+    >
+      browse the gallery below to explore the mobile library room by room, or
+      learn everything there is to know about the space
+      <RouterLink
+        class="hover:text-[#dffcfe] underline cursor-pointer"
+        to="/the-space"
+        >here</RouterLink
+      >.
+    </p>
 
-      <div class="relative max-w-4xl mx-auto pl-4">
-        <div class="flex flex-wrap justify-center gap-6 sm:gap-12 mb-4">
-          <button
-            v-for="room in ['living room', 'full kitchen', 'exterior']"
-            :key="room"
-            @click="goToRoom(room)"
-            :class="[
-              'font-mono text-[#4A423C] transition-all hover:opacity-100',
-              images[currentIndex].room === room
-                ? 'font-bold'
-                : 'font-normal opacity-50',
-            ]"
-          >
-            {{ room }}
-          </button>
-        </div>
-
-        <figure class="relative">
-          <img
-            :src="images[currentIndex].src"
-            :alt="images[currentIndex].caption"
-            class="w-full sm:w-auto h-auto sm:h-160 mx-auto object-cover rounded-lg shadow-lg cursor-pointer"
-            @click="openFullScreen"
-          />
-
-          <figcaption
-            v-if="images[currentIndex].caption"
-            class="mt-4 text-center text-sm sm:text-base font-mono text-[#4A423C] opacity-70"
-          >
-            {{ images[currentIndex].caption }}
-          </figcaption>
-        </figure>
-
+    <div class="relative max-w-4xl mx-auto">
+      <div class="flex flex-wrap justify-center gap-6 sm:gap-12 mb-4">
         <button
-          @click="prevImage"
-          class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white text-[#4A423C] p-3 rounded-full shadow-lg transition-all"
-          aria-label="Previous image"
+          v-for="room in [
+            'living room',
+            'full kitchen',
+            'dining area',
+            'bedroom',
+            'exterior',
+          ]"
+          :key="room"
+          @click="goToRoom(room)"
+          :class="[
+            'font-mono text-[#4A423C] transition-all hover:opacity-100',
+            images[currentIndex].room === room
+              ? 'font-bold'
+              : 'font-normal opacity-50',
+          ]"
         >
-          ←
+          {{ room }}
         </button>
+      </div>
 
+      <figure class="relative">
+        <img
+          :src="images[currentIndex].src"
+          :alt="images[currentIndex].caption"
+          class="h-100 w-full sm:w-auto sm:h-140 mx-auto object-cover rounded-lg shadow-lg cursor-pointer"
+          @click="openFullScreen"
+        />
+
+        <figcaption
+          v-if="images[currentIndex].caption"
+          class="mt-4 text-center text-sm sm:text-base font-mono text-[#4A423C] opacity-70"
+        >
+          {{ images[currentIndex].caption }}
+        </figcaption>
+      </figure>
+
+      <button
+        @click="prevImage"
+        class="absolute left-2 top-80 -translate-y-1/2 bg-[#dffcfe]/70 hover:bg-[#dffcfe] text-[#4A423C] p-3 rounded-full shadow-lg transition-all"
+        aria-label="Previous image"
+      >
+        ←
+      </button>
+
+      <button
+        @click="nextImage"
+        class="absolute right-2 top-80 -translate-y-1/2 bg-[#dffcfe]/70 hover:bg-[#dffcfe] text-[#4A423C] p-3 rounded-full shadow-lg transition-all"
+        aria-label="Next image"
+      >
+        →
+      </button>
+
+      <div class="flex justify-center gap-2 mt-6">
         <button
-          @click="nextImage"
-          class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white text-[#4A423C] p-3 rounded-full shadow-lg transition-all"
-          aria-label="Next image"
-        >
-          →
-        </button>
-
-        <div class="flex justify-center gap-2 mt-6">
-          <button
-            v-for="index in images"
-            :key="index"
-            @click="currentIndex = index"
-            :class="[
-              'w-2 h-2 rounded-full transition-all',
-              currentIndex === index ? 'bg-[#4A423C] w-6' : 'bg-[#4A423C]/30',
-            ]"
-            :aria-label="`Go to image ${index + 1}`"
-          />
-        </div>
+          v-for="(image, index) in images"
+          :key="index"
+          @click="currentIndex = index"
+          :class="[
+            'w-2 h-2 rounded-full transition-all',
+            currentIndex === index ? 'bg-[#4A423C] w-6' : 'bg-[#4A423C]/30',
+          ]"
+          :aria-label="`Go to image ${index + 1}`"
+        />
       </div>
     </div>
 
     <div
       v-if="isFullScreen"
-      class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center"
+      class="fixed inset-0 bg-black z-50 flex items-center justify-center"
       @click="closeFullScreen"
     >
       <button
@@ -246,7 +332,7 @@ const goToRoom = (roomName) => {
 
         <button
           @click.stop="prevImage"
-          class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-[#4A423C] p-3 rounded-full shadow-lg transition-all"
+          class="absolute left-8 top-1/2 -translate-y-1/2 bg-[#dffcfe]/70 hover:bg-[#dffcfe] text-[#4A423C] p-3 rounded-full shadow-lg transition-all"
           aria-label="Previous image"
         >
           ←
@@ -254,7 +340,7 @@ const goToRoom = (roomName) => {
 
         <button
           @click.stop="nextImage"
-          class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-[#4A423C] p-3 rounded-full shadow-lg transition-all"
+          class="absolute right-8 top-1/2 -translate-y-1/2 bg-[#dffcfe]/70 hover:bg-[#dffcfe] text-[#4A423C] p-3 rounded-full shadow-lg transition-all"
           aria-label="Next image"
         >
           →

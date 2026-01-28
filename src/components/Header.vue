@@ -8,6 +8,7 @@ const menuItems = [
   { to: "/", label: "home" },
   { to: "/book", label: "book your stay" },
   { to: "/gallery", label: "view our gallery" },
+  { to: "/the-space", label: "the space" },
   { to: "/more-info", label: "more info" },
 ]
 </script>

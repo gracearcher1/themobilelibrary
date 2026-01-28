@@ -8,7 +8,11 @@ const allFooterLinks = [
   { to: "/", label: "home" },
   { to: "/book", label: "book your stay" },
   { to: "/gallery", label: "view gallery" },
-  { to: "/more-info", label: "more info" },
+  { to: "/the-space", label: "the space" },
+  {
+    to: "/more-info",
+    label: "more info",
+  },
 ]
 
 const footerLinks = computed(() => {
