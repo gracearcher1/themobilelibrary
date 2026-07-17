@@ -1,6 +1,68 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap");
 @import "tailwindcss";
 
+/*
+ * All site colors live here, in one place. Each semantic slot below
+ * (page/title/body/muted/ink/accent/accent-light/tan/blue/error/error-bg)
+ * generates matching Tailwind utilities -- bg-page, text-title, border-accent,
+ * etc. -- via the @theme block, which just points at the CSS variables
+ * defined per theme underneath. To change a color everywhere it's used,
+ * edit its value here, not the utility classes in components.
+ *
+ * The two themes: [data-theme="dark"] (default) and [data-theme="light"]
+ * (the original palette this site started with). Header.vue's toggle just
+ * flips data-theme on <html>.
+ */
+@theme {
+  --color-page: var(--ui-page);
+  --color-title: var(--ui-title);
+  --color-body: var(--ui-body);
+  --color-muted: var(--ui-muted);
+  --color-ink: var(--ui-ink);
+  --color-accent: var(--ui-accent);
+  --color-accent-light: var(--ui-accent-light);
+  --color-tan: var(--ui-tan);
+  --color-blue: var(--ui-blue);
+  --color-error: var(--ui-error);
+  --color-error-bg: var(--ui-error-bg);
+  /* Pre-lightened (mixed with white) versions of tan/blue, used as solid
+     panel backgrounds -- same soft, washed-out look regardless of theme,
+     since it no longer depends on what's showing through underneath. */
+  --color-tan-panel: var(--ui-tan-panel);
+  --color-blue-panel: var(--ui-blue-panel);
+}
+
+:root,
+:root[data-theme="dark"] {
+  --ui-page: #2a2119;
+  --ui-title: #f1e7d8;
+  --ui-body: #f1e7d8;
+  --ui-muted: #c9b8a4;
+  --ui-ink: #4a423c;
+  --ui-accent: #c5e5e7;
+  --ui-accent-light: #dffcfe;
+  --ui-tan: #d6b4ab;
+  --ui-blue: #b1d8db;
+  --ui-error: #c62828;
+  --ui-error-bg: #ffebee;
+  --ui-tan-panel: #f3e9e6;
+  --ui-blue-panel: #e0eff1;
+}
+
+:root[data-theme="light"] {
+  --ui-page: #ffffff;
+  --ui-title: #4a423c;
+  --ui-body: #4a423c;
+  --ui-muted: #85766b;
+  --ui-ink: #4a423c;
+  --ui-accent: #c5e5e7;
+  --ui-accent-light: #dffcfe;
+  --ui-tan: #d6b4ab;
+  --ui-blue: #b1d8db;
+  --ui-error: #c62828;
+  --ui-error-bg: #ffebee;
+}
+
 body {
-  background: white;
+  background-color: var(--color-page);
 }

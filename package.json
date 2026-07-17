@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@supabase/supabase-js": "^2.109.0",
     "@tailwindcss/vite": "^4.1.18",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.26"

@@ -4,17 +4,17 @@ import Book from "./Book.vue"
 </script>
 
 <template>
-  <p class="pl-4 text-2xl sm:text-4xl font-mono tracking-wider text-[#4A423C]">
+  <p class="pl-4 text-2xl sm:text-4xl font-mono tracking-wider text-title">
     more info
   </p>
   <p
-    class="px-6 text:md font-bold tracking-wider sm:text-lg font-mono pt-8 pb-4 text-[#4A423C]"
+    class="px-6 text:md font-bold tracking-wider sm:text-lg font-mono pt-8 pb-4 text-body"
   >
     guest access
   </p>
 
   <p
-    class="p-8 sm:py-12 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify bg-[#b1d8db]/40 text-[#4A423C]"
+    class="p-8 sm:py-12 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify bg-blue-panel text-ink"
   >
     You'll have our beloved mobile library to yourselves. You will share the
     lake with the occasional fisherman and walkers will go by once or twice a
@@ -23,13 +23,13 @@ import Book from "./Book.vue"
     train going by on the other side of the field.
   </p>
   <p
-    class="px-6 text:md font-bold tracking-wider sm:text-lg font-mono pt-8 pb-4 text-[#4A423C]"
+    class="px-6 text:md font-bold tracking-wider sm:text-lg font-mono pt-8 pb-4 text-body"
   >
     other things to note
   </p>
 
   <p
-    class="p-6 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify text-[#4A423C]"
+    class="p-6 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify text-body"
   >
     1. Water: There are 200 litres of fresh water provided onboard, including 40
     litres of hot water. As with any off grid living water is the most important
@@ -40,7 +40,7 @@ import Book from "./Book.vue"
     just outside.
   </p>
   <p
-    class="p-6 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify text-[#4A423C]"
+    class="p-6 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify text-body"
   >
     2. Composting toilet: **Sit-down wee only!** When you open the toilet lid
     you will see that the toilet bowl has a separator, essentially there are two
@@ -55,7 +55,7 @@ import Book from "./Book.vue"
     normal toilet.
   </p>
   <p
-    class="p-6 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify text-[#4A423C]"
+    class="p-6 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify text-body"
   >
     Being completely off-grid, the mobile library doesn't have any WiFi. We hope
     this will enable you to switch off, fully relax and enjoy the beautiful
@@ -63,11 +63,11 @@ import Book from "./Book.vue"
     coverage depending on where you are in the bus!
   </p>
   <p
-    class="p-6 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify text-[#4A423C]"
+    class="p-6 leading-relaxed tracking-wider font-mono text-sm sm:text-md pb text-justify text-body"
   >
     If you have any questions that haven't been answered, please don't hesitate
     to get in touch using our request form
-    <RouterLink class="hover:text-[#dffcfe] underline cursor-pointer" to="/book"
+    <RouterLink class="hover:text-accent-light underline cursor-pointer" to="/book"
       >here</RouterLink
     >.
   </p>
