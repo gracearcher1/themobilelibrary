@@ -10,6 +10,7 @@ import AdminHome from "@/views/AdminHome.vue"
 import AdminLogin from "@/views/AdminLogin.vue"
 import AdminManageBookings from "@/views/AdminManageBookings.vue"
 import AdminCalendarPage from "@/views/AdminCalendarPage.vue"
+import AdminPricingPage from "@/views/AdminPricingPage.vue"
 
 const routes = [
   { path: "/", name: "home", component: Home },
@@ -36,6 +37,12 @@ const routes = [
     path: "/admin/calendar",
     name: "admin-calendar",
     component: AdminCalendarPage,
+    meta: { requiresAdmin: true },
+  },
+  {
+    path: "/admin/pricing",
+    name: "admin-pricing",
+    component: AdminPricingPage,
     meta: { requiresAdmin: true },
   },
 ]

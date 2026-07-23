@@ -213,7 +213,7 @@ const handleSubmit = async (e) => {
             dates
           </label>
           <div
-            class="w-full p-4 border-2 rounded-md"
+            class="w-full p-4 border-2 rounded-md font-mono"
             style="border-color: var(--color-accent)"
           >
             <Calendar v-model="selectedRange" :disabled-ranges="blockedDates" />

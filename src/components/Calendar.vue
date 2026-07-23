@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue"
+import { ref, computed, onMounted, onUnmounted } from "vue"
 
 const props = defineProps({
   modelValue: {
@@ -10,9 +10,31 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  // Enables a hover/click tooltip on blocked dates showing block details, with
+  // a remove button for manual blocks (admin use) -- off by default so the
+  // customer-facing calendar's behaviour is unchanged.
+  interactive: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const emit = defineEmits(["update:modelValue"])
+const emit = defineEmits(["update:modelValue", "remove-block"])
+
+const root = ref(null)
+const activeIso = ref(null)
+const hoverIso = ref(null)
+
+function blockForDate(iso) {
+  return props.disabledRanges.find((range) => iso >= range.from_date && iso <= range.to_date)
+}
+
+function handleOutsideClick(e) {
+  if (root.value && !root.value.contains(e.target)) activeIso.value = null
+}
+
+onMounted(() => document.addEventListener("click", handleOutsideClick))
+onUnmounted(() => document.removeEventListener("click", handleOutsideClick))
 
 const WEEKDAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
@@ -98,8 +120,7 @@ function cellState(iso) {
   return "default"
 }
 
-function handleClick(cell) {
-  if (!cell || isDisabled(cell.iso)) return
+function selectCell(cell) {
   const { from, to } = props.modelValue
 
   if (!from || to) {
@@ -119,10 +140,34 @@ function handleClick(cell) {
 
   emit("update:modelValue", { from, to: cell.iso })
 }
+
+function handleCellClick(cell) {
+  if (!cell) return
+  if (isDisabled(cell.iso)) {
+    if (props.interactive && blockForDate(cell.iso)) {
+      activeIso.value = activeIso.value === cell.iso ? null : cell.iso
+    }
+    return
+  }
+  selectCell(cell)
+}
+
+function handleCellEnter(cell) {
+  if (cell && props.interactive && blockForDate(cell.iso)) hoverIso.value = cell.iso
+}
+
+function handleCellLeave(cell) {
+  if (cell && hoverIso.value === cell.iso) hoverIso.value = null
+}
+
+function handleRemoveClick(block) {
+  emit("remove-block", block.id)
+  activeIso.value = null
+}
 </script>
 
 <template>
-  <div class="font-mono tracking-wider select-none">
+  <div ref="root" class="tracking-wider select-none">
     <div class="flex items-center justify-between mb-4">
       <button
         type="button"
@@ -154,32 +199,59 @@ function handleClick(cell) {
     </div>
 
     <div class="grid grid-cols-7 gap-1">
-      <button
-        v-for="(cell, index) in cells"
-        :key="cell ? cell.iso : `blank-${index}`"
-        type="button"
-        :disabled="!cell || isDisabled(cell.iso)"
-        @click="handleClick(cell)"
-        class="aspect-square rounded-md text-sm transition-colors duration-150 flex items-center justify-center"
-        :class="{
-          invisible: !cell,
-          'text-gray-600 cursor-not-allowed': cell && isDisabled(cell.iso),
-          'text-body hover:bg-body/15 cursor-pointer':
-            cell && !isDisabled(cell.iso) && cellState(cell.iso) === 'default',
-          'bg-body text-page cursor-pointer':
-            cell && !isDisabled(cell.iso) && cellState(cell.iso) === 'endpoint',
-          'bg-body/20 text-body cursor-pointer':
-            cell && !isDisabled(cell.iso) && cellState(cell.iso) === 'in-range',
-          'ring-1 ring-muted': cell && cell.iso === today,
-        }"
-      >
-        {{ cell ? cell.day : "" }}
-      </button>
+      <div v-for="(cell, index) in cells" :key="cell ? cell.iso : `blank-${index}`" class="relative">
+        <button
+          type="button"
+          :disabled="!cell || (isDisabled(cell.iso) && !(interactive && blockForDate(cell.iso)))"
+          @click="handleCellClick(cell)"
+          @mouseenter="handleCellEnter(cell)"
+          @mouseleave="handleCellLeave(cell)"
+          class="w-full aspect-square rounded-md text-sm transition-colors duration-150 flex items-center justify-center"
+          :class="{
+            invisible: !cell,
+            'text-gray-600/50 cursor-not-allowed diagonal-stripes': cell && isDisabled(cell.iso),
+            'text-body hover:bg-body/15 cursor-pointer':
+              cell && !isDisabled(cell.iso) && cellState(cell.iso) === 'default',
+            'bg-body text-page cursor-pointer':
+              cell && !isDisabled(cell.iso) && cellState(cell.iso) === 'endpoint',
+            'bg-body/20 text-body cursor-pointer':
+              cell && !isDisabled(cell.iso) && cellState(cell.iso) === 'in-range',
+            'ring-1 ring-muted': cell && cell.iso === today,
+          }"
+        >
+          {{ cell ? cell.day : "" }}
+        </button>
+
+        <div
+          v-if="cell && interactive && (activeIso === cell.iso || hoverIso === cell.iso) && blockForDate(cell.iso)"
+          class="absolute z-20 bottom-full left-1/2 -translate-x-1/2 mb-2 w-44 rounded-md border-2 border-accent bg-page p-3 text-xs text-body shadow-lg"
+        >
+          <p>
+            {{ blockForDate(cell.iso).from_date }} → {{ blockForDate(cell.iso).to_date }}
+          </p>
+          <p class="text-muted mt-1">
+            {{
+              blockForDate(cell.iso).source === "booking"
+                ? "Booking"
+                : blockForDate(cell.iso).label || "Manual block"
+            }}
+          </p>
+          <button
+            v-if="blockForDate(cell.iso).source === 'manual'"
+            type="button"
+            @click.stop="handleRemoveClick(blockForDate(cell.iso))"
+            class="mt-2 text-error text-xs hover:opacity-70 cursor-pointer"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="flex items-center gap-4 mt-4 text-xs text-muted">
       <span class="flex items-center gap-1.5">
-        <span class="w-3 h-3 rounded-sm bg-gray-600"></span> unavailable
+        <span class="w-3 h-3 rounded-sm border border-muted text-gray-600/50 diagonal-stripes"></span>
+        unavailable
       </span>
       <span class="flex items-center gap-1.5">
         <span class="w-3 h-3 rounded-sm bg-body"></span> selected
@@ -187,3 +259,15 @@ function handleClick(cell) {
     </div>
   </div>
 </template>
+
+<style scoped>
+.diagonal-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 5px,
+    currentColor 5px,
+    currentColor 6px
+  );
+}
+</style>

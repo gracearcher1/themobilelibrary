@@ -4,6 +4,7 @@ import { RouterLink, useRoute } from "vue-router"
 
 const route = useRoute()
 const isMenuOpen = ref(false)
+const isAdmin = computed(() => !!route.meta.requiresAdmin)
 
 const allMenuItems = [
   { to: "/", label: "home" },
@@ -21,9 +22,14 @@ const menuItems = computed(() => {
   <div
     class="flex justify-between items-center text-md sm:text-l tracking-wider text-body font-mono"
   >
+    <span v-if="isAdmin" class="text-sm sm:text-base text-gray-700"
+      >you are currently in * admin mode *</span
+    >
+
     <router-link
       to="/"
-      class="text-2xl sm:text-3xl text-tan ml-auto pr-4 sm:pr-6 hover:opacity-80 transition-opacity cursor-pointer"
+      class="text-2xl sm:text-3xl ml-auto pr-4 sm:pr-6 hover:opacity-80 transition-opacity cursor-pointer"
+      :class="isAdmin ? 'text-gray-700' : 'text-tan'"
     >
       the mobile library
     </router-link>

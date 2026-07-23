@@ -2,8 +2,8 @@ import { ref } from "vue"
 import { supabase } from "@/lib/supabase"
 
 const DEFAULT_SETTINGS = {
-  nightly_rate_pence: 15000,
-  min_stay_nights: 2,
+  nightly_rate_pence: 14000,
+  min_stay_nights: 0, // 0 means no minimum stay
   owner_email: "",
 }
 
@@ -44,16 +44,31 @@ export function useAvailability() {
     settings.value = next
   }
 
-  async function addBlock({ from, to, label }) {
+  async function updateSetting(key, value) {
     const { error: err } = await supabase
-      .from("blocked_dates")
-      .insert({ from_date: from, to_date: to, source: "manual", label: label || null })
+      .from("settings")
+      .update({ value: String(value) })
+      .eq("key", key)
+    if (err) throw err
+    await fetchSettings()
+  }
+
+  async function addBlock({ from, to, label }) {
+    const { error: err } = await supabase.from("blocked_dates").insert({
+      from_date: from,
+      to_date: to,
+      source: "manual",
+      label: label || null,
+    })
     if (err) throw err
     await fetchBlockedDates()
   }
 
   async function removeBlock(id) {
-    const { error: err } = await supabase.from("blocked_dates").delete().eq("id", id)
+    const { error: err } = await supabase
+      .from("blocked_dates")
+      .delete()
+      .eq("id", id)
     if (err) throw err
     await fetchBlockedDates()
   }
@@ -65,6 +80,7 @@ export function useAvailability() {
     error,
     fetchBlockedDates,
     fetchSettings,
+    updateSetting,
     addBlock,
     removeBlock,
   }

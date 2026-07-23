@@ -1,5 +1,17 @@
 # The Mobile Library — Booking System Implementation Plan
 
+## To-do
+
+- [ ] **Wire the real "booking confirmed" email.** `/admin/manage-bookings`'s Confirm dialog already says "a confirmation email will be sent to you and to the guest," but no send actually happens yet — `handleConfirmDialogAccept` in `AdminManageBookings.vue` only updates Supabase, it doesn't call EmailJS. Needs: one or two new EmailJS templates (guest confirmation + owner copy, or one template addressed to both), the template ID(s), then a `emailjs.send(...)` call added after `handleConfirm(booking)` succeeds. Until this is done, the popup overstates what the app actually does.
+- [ ] **Booking-declined email** (Phase 4 below) — same gap on the Reject path, not yet raised as a requirement but worth closing at the same time.
+- [ ] **Dynamic `owner_email` in EmailJS** (Phase 3 below) — the request-notification emails in `Book.vue` still go to whatever address is hardcoded in the EmailJS templates, not `settings.owner_email`.
+- [x] **Pricing section** in `/admin/pricing` — nightly rate and minimum stay (on/off toggle, default off/no minimum) are now editable from the admin panel via `AdminPricingPage.vue`, no more Supabase table editor needed for these two.
+- [ ] **`owner_email` still not editable in-app** — only `nightly_rate_pence` and `min_stay_nights` got a UI (see above); `owner_email` still requires the Supabase table editor. Could get a small "Notifications" section on the same Pricing page, or its own tab, once the dynamic `owner_email` EmailJS wiring below is done (no point exposing it in the UI before it actually does anything).
+- [ ] Dev server warns Node 20.18.0 is below Vite's required 20.19+ — non-fatal, worth upgrading before deploying.
+- [ ] Deployment (Vercel) — intentionally deferred, no domain yet.
+- [ ] **Prompt the client to buy a domain.** Not a technical blocker — the site can be built, deployed, and even take real Stripe payments on a free `*.vercel.app` URL. But a proper domain reads more trustworthy to customers at checkout, and avoids re-verifying Apple Pay against a new domain later. Worth raising before a real/public launch, not before then.
+- [ ] **Stripe payments (V2)** — take payment upfront, only capture it once the owner confirms the booking (auto-refund/release on reject). This is the point where the project needs a real server for the first time (Vercel Functions), since Stripe's secret key can't be used in the browser. Architecture already sketched out in the "V2 — Stripe Payments" section at the bottom of this doc — needs a Stripe account, new Supabase columns, new Vercel Functions, and a decision on Checkout (redirect, less code) vs embedded Payment Element (more code, no redirect) before starting.
+
 ## Overview
 
 Transform the current static enquiry form into a booking system with:

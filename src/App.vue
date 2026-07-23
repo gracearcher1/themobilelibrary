@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { computed } from "vue"
+import { useRoute } from "vue-router"
 import Footer from "./components/Footer.vue"
 import Header from "./components/Header.vue"
+
+const route = useRoute()
+const isAdmin = computed(() => !!route.meta.requiresAdmin)
 </script>
 
 <template>
   <div class="min-h-screen flex flex-col">
-    <header class="p-6 max-w-5xl mx-auto w-full">
+    <header class="p-6 max-w-5xl mx-auto w-full" :class="{ 'bg-blue': isAdmin }">
       <Header></Header>
     </header>
     <main class="flex-1 max-w-5xl mx-auto w-full">
