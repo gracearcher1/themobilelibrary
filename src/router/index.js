@@ -50,8 +50,8 @@ const router = createRouter({
   linkExactActiveClass: "exact-active",
 })
 
-router.beforeEach((to) => {
-  if (to.meta.requiresAdmin && !isAdminAuthenticated()) {
+router.beforeEach(async (to) => {
+  if (to.meta.requiresAdmin && !(await isAdminAuthenticated())) {
     return { path: "/admin/login" }
   }
 })

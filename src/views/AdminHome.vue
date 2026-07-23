@@ -5,8 +5,8 @@ import { logoutAdmin } from "@/lib/adminAuth"
 
 const router = useRouter()
 
-function handleLogout() {
-  logoutAdmin()
+async function handleLogout() {
+  await logoutAdmin()
   router.push("/admin/login")
 }
 </script>

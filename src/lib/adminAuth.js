@@ -1,19 +1,16 @@
-// TEMPORARY testing-only auth: a single hardcoded password, no real backend
-// session. Replace with real Supabase Auth (see PLAN.md) before this ever
-// touches real customer/booking data.
-const STORAGE_KEY = "admin_authenticated"
-const TEST_PASSWORD = "admin"
+import { supabase } from "@/lib/supabase"
 
-export function isAdminAuthenticated() {
-  return sessionStorage.getItem(STORAGE_KEY) === "true"
+export async function isAdminAuthenticated() {
+  const { data } = await supabase.auth.getSession()
+  return !!data.session
 }
 
-export function loginAsAdmin(password) {
-  if (password !== TEST_PASSWORD) return false
-  sessionStorage.setItem(STORAGE_KEY, "true")
-  return true
+export async function loginAsAdmin(email, password) {
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
+  if (error) return { success: false, message: error.message }
+  return { success: true }
 }
 
-export function logoutAdmin() {
-  sessionStorage.removeItem(STORAGE_KEY)
+export async function logoutAdmin() {
+  await supabase.auth.signOut()
 }

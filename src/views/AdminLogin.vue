@@ -4,15 +4,21 @@ import { useRouter } from "vue-router"
 import { loginAsAdmin } from "@/lib/adminAuth"
 
 const router = useRouter()
+const email = ref("")
 const password = ref("")
 const error = ref("")
+const loggingIn = ref(false)
 
-function handleLogin(e) {
+async function handleLogin(e) {
   e.preventDefault()
-  if (loginAsAdmin(password.value)) {
+  loggingIn.value = true
+  error.value = ""
+  const result = await loginAsAdmin(email.value, password.value)
+  loggingIn.value = false
+  if (result.success) {
     router.push("/admin")
   } else {
-    error.value = "Incorrect password."
+    error.value = result.message
   }
 }
 </script>
@@ -33,21 +39,33 @@ function handleLogin(e) {
       </div>
       <div>
         <label class="block text-sm tracking-wider font-mono font-semibold mb-2 text-body">
+          email
+        </label>
+        <input
+          v-model="email"
+          type="email"
+          required
+          autofocus
+          class="w-full px-4 py-2 border-2 rounded-md focus:outline-none font-mono border-accent"
+        />
+      </div>
+      <div>
+        <label class="block text-sm tracking-wider font-mono font-semibold mb-2 text-body">
           password
         </label>
         <input
           v-model="password"
           type="password"
           required
-          autofocus
           class="w-full px-4 py-2 border-2 rounded-md focus:outline-none font-mono border-accent"
         />
       </div>
       <button
         type="submit"
-        class="w-full text-ink cursor-pointer font-mono py-3 px-6 rounded-md transition-colors duration-200 bg-accent-light"
+        :disabled="loggingIn"
+        class="w-full text-ink cursor-pointer font-mono py-3 px-6 rounded-md transition-colors duration-200 bg-accent-light disabled:opacity-50"
       >
-        log in
+        {{ loggingIn ? "logging in..." : "log in" }}
       </button>
     </form>
   </div>

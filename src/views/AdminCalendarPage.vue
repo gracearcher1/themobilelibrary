@@ -18,8 +18,8 @@ onMounted(() => {
   fetchBlockedDates()
 })
 
-function handleLogout() {
-  logoutAdmin()
+async function handleLogout() {
+  await logoutAdmin()
   router.push("/admin/login")
 }
 
